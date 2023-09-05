@@ -1,0 +1,51 @@
+.app-card{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+    flex-direction: column;  
+}
+
+.toastContainer{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    font-size: 25px;
+    padding: 30px;
+}
+
+.app-form{
+    padding: 50px;
+    width: 50%;
+    background-color: rgba(253, 253, 253, 0.788);
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+}
+
+.msg__app{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    padding: 50px;
+}
+
+.app-form-submit{
+    font-size: inherit;
+    margin-top: 20px;
+    width: 60%;
+}
+
+.app-send-toall{
+    margin-top: 20px;
+}
+
+.logo{
+    margin-top: 20px;
+}
