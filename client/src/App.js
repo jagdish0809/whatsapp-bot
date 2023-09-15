@@ -31,8 +31,8 @@ function App() {
     );
   } else{
     return (
-      <h1>Server is not working</h1>
-    )
+        <span class="loader"></span>
+    );
   }
 }
 

@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 let host = process.env.REACT_APP_HOST;
 const Header = () => {
-  const [showPopup, setShowPopup] = useState(false);
+  const [showPopup, setShowPopup] = useState(null);
   const [whatsappNumber, setWhatsappNumber] = useState("");
   const [isExistingMember, setIsExistingMember] = useState(false);
   const [isSuccess, setIsSuccess] = useState("");
@@ -15,25 +15,30 @@ const Header = () => {
   useEffect(() => {}, []);
 
   const handleButtonClick = () => {
-    setShowPopup(true);
+    setShowPopup(false);
+
     const getServerData = async () => {
       try {
         const response = await axios.get(`${host}/`);
+
         if (response.status != 200) {
-          setShowPopup(false);
-          await toast.danger("Something went wrong. Please try again later.");
+          setShowPopup(null);
+          await toast("Something went wrong. Please try again later.");
+        } else {
+          setShowPopup(true);
         }
       } catch (error) {
         // console.log(error);
-        setShowPopup(false);
-        await toast.danger("Something went wrong. Please try again later.");
+        setShowPopup(null);
+
+        await toast("Something went wrong. Please try again later.");
       }
     };
     getServerData();
   };
 
   const handlePopupClose = () => {
-    setShowPopup(false);
+    setShowPopup(null);
     setWhatsappNumber("");
     setIsExistingMember(false);
     setIsSuccess(false);
@@ -46,6 +51,8 @@ const Header = () => {
       const response = await axios.post(`${host}/api/saveWhatsappNumber`, {
         whatsappNumber,
       });
+    setWhatsappNumber(null);
+
 
       if (response.data.isExistingMember) {
         setIsExistingMember(true);
@@ -73,7 +80,7 @@ const Header = () => {
         </button>
       </div>
 
-      {showPopup && (
+      {showPopup ? (
         <div className="overlay">
           <div className="popup">
             <h2>Enter your WhatsApp number</h2>
@@ -96,6 +103,14 @@ const Header = () => {
             </form>
           </div>
         </div>
+      ) : (
+        showPopup === false && (
+          <div className="overlay">
+            {/* <div className="popup"> */}
+              <span class="loader"></span>
+            {/* </div> */}
+          </div>
+        )
       )}
     </div>
   );
